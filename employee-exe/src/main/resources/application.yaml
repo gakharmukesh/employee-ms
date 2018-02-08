@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+security:
+  basic:
+    enabled: true
+    
+#Messages
+spring:
+  messages:
+    basename: services-messages
+#Jason date format
+  jackson:
+    date-format: yyyy-MM-dd
+    serializaion:
+      WRITE_DATES_AS_TIMESTAMPS: false
+      

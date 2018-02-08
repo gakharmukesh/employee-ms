@@ -1,0 +1,297 @@
+swagger: "2.0"
+
+info:
+  description: "Employee MS"
+  version: "1.0.0"
+  title: "Employee MS"
+  contact:
+    name: "Mukesh Kumar"
+    url: "http://"
+    email: "mukeshg@amdocs.com"
+  license:
+    name: "Mukesh Kumar"
+    url: "http://"
+    
+host: "mukeshkumar.com:10101"
+basePath: "/employees/v1"
+schemes:
+- "https"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+
+
+
+
+paths:
+  /employees:
+    get:
+      tags:
+      - "Get all employees"
+      description: "Returns list of employees."
+      operationId: "getEmployees"
+      parameters:
+        - $ref: "#/parameters/header-conversationId"
+      responses:
+        200:
+          description: "*OK* - Employees information successfully retrieved"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Employee"
+        400:
+          description: "*Bad Request* - client has sent malformed request:missing mandatory query parameters, invalid valuein query parameters, backend exception etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        403:
+          description: "*Forbidden* - server rejected client request operationthat is outside of the the permitted scope."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        404:
+          description: "*Not Found* - server has not found the requested URI:missing path parameters, invalid web resource etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      tags:
+      - "Add new employee"
+      description: "Add a new Employee"
+      operationId: "addEmployee"
+      parameters:
+        - $ref: "#/parameters/header-conversationId"
+        - name: newEmployee
+          in: body
+          schema:
+            $ref: "#/definitions/Employee"
+          required: true
+      responses:
+        201:
+          description: "*OK* -New Employee created successfully."
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Employee"
+        400:
+          description: "*Bad Request* - client has sent malformed request:missing mandatory query parameters, invalid valuein query parameters, backend exception etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        404:
+          description: "*Not Found* - server has not found the requested URI:missing path parameters, invalid web resource etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        412:
+          description: "*PRE-Validation Failed* -Request input is not valid."
+          schema:
+            $ref: "#/definitions/EmployeeValidation"
+
+            
+  /employees/{ID}:
+    get:
+      tags:
+      - "Get employee"
+      description: "Return employee details."
+      operationId: "getEmployeeByID"
+      parameters:
+        - $ref: "#/parameters/header-conversationId"
+        - name: ID
+          in: path
+          required: true
+          type: "number"
+          description: "Employee ID"
+      responses:
+        200:
+          description: "*OK* - Employee information successfully retrieved."
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Employee"
+        400:
+          description: "*Bad Request* - client has sent malformed request:missing mandatory query parameters, invalid valuein query parameters, backend exception etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        403:
+          description: "*Forbidden* - server rejected client request operationthat is outside of the the permitted scope."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        404:
+          description: "*Not Found* - server has not found the requested URI:missing path parameters, invalid web resource etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        412:
+          description: "*PRE-Validation Failed* -Request input is not valid."
+          schema:
+            $ref: "#/definitions/EmployeeValidation"
+    put:
+      tags:
+      - "Update employee"
+      description: "Update existing Employee"
+      operationId: "updateEmployeebyID"
+      parameters:
+        - $ref: "#/parameters/header-conversationId"
+        - name: ID
+          in: path
+          required: true
+          type: "number"
+          description: "Employee ID"
+        - name: updateEmployee
+          in: body
+          schema:
+            $ref: "#/definitions/Employee"
+          required: true
+      responses:
+        201:
+          description: "*OK* -Employee details updated successfully."
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Employee"
+        400:
+          description: "*Bad Request* - client has sent malformed request:missing mandatory query parameters, invalid valuein query parameters, backend exception etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        403:
+          description: "*Forbidden* - server rejected client request operationthat is outside of the the permitted scope."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        404:
+          description: "*Not Found* - server has not found the requested URI:missing path parameters, invalid web resource etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+        412:
+          description: "*PRE-Validation Failed* -Request input is not valid."
+          schema:
+            $ref: "#/definitions/EmployeeValidation"
+    delete:
+      tags:
+      - "Delete employee"
+      description: "Delete employee."
+      operationId: "deleteEmployeeByID"
+      parameters:
+        - $ref: "#/parameters/header-conversationId"
+        - name: ID
+          in: path
+          required: true
+          type: "number"
+          description: "Employee ID"
+      responses:
+        200:
+          description: "*OK* - Employee deleteed successfully."
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Employee"
+        400:
+          description: "*Bad Request* - client has sent malformed request:missing mandatory query parameters, invalid valuein query parameters, backend exception etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        403:
+          description: "*Forbidden* - server rejected client request operationthat is outside of the the permitted scope."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        404:
+          description: "*Not Found* - server has not found the requested URI:missing path parameters, invalid web resource etc."
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        412:
+          description: "*PRE-Validation Failed* -Request input is not valid."
+          schema:
+            $ref: "#/definitions/EmployeeValidation"
+
+
+#
+# Parameters
+#
+
+parameters:
+
+  header-conversationId:
+    name: ConversationId
+    in: header
+    description: Client's conversation id
+    type: "string"
+
+#
+# Definitions
+#
+            
+definitions:
+  Employee:
+    type: "object"
+    properties:
+      id:
+         type: "number"
+      firstName:
+        type: "string"
+      middleInitial:
+        type: "string"
+        maxLength: 1
+      lastName:
+        type: "string"
+      dateOfBirth:
+        type: "string"
+        format: date
+        pattern: "mm-dd-yyyy"
+      dateOfEmployment:
+        type: "string"
+        format: date
+        pattern: "mm-dd-yyyy"
+      status:
+        type: "string"
+    description: "Employee Information"
+
+  ErrorResponse:
+    type: "object"
+    properties:
+      link:
+        type: "string"
+        description: "The href to the Employee"
+      code:
+        type: "string"
+        description: "The code associated with the error"
+      message:
+        type: "string"
+        description: "The message associated with the error"
+      traceId:
+        type: "string"
+        description: "A unique tracker id used to facilitate troubleshooting"
+        
+  ValidationFailure:
+    description: |
+      Employee Validation failures
+    type: object
+    properties:
+      severity:
+        description: |
+          Severity of the failure: 
+          ERROR - the Employee cannot proceed
+          OVERRIDABLE - the Employee can proceed with override
+          WARNING - the Employee can proceed
+          INFO - the Employee can proceed
+        type: string
+      code:
+        description: |
+          Identifies the specific validation failure.
+        type: string
+      message:
+        description: |
+          Validation failure message
+        type: string
+ 
+  
+  ValidationFailureCollection:
+    description: |
+      Array of validation errors
+    type: array
+    items:
+      $ref: "#/definitions/ValidationFailure"
+
+  EmployeeValidation:
+    description: |
+      Employee with validation messages.
+    type: object
+    properties:
+      employee:
+        $ref: "#/definitions/Employee"
+      validation:
+        $ref: "#/definitions/ValidationFailureCollection"
+      
