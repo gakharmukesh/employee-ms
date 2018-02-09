@@ -5,6 +5,7 @@ import springfox.documentation.service.Contact;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -24,6 +25,7 @@ public class SwaggerConfig
                 .apiInfo(metaData());
     }
 	
+
 	
 	private ApiInfo metaData() {
 	        ApiInfo apiInfo = new ApiInfo(

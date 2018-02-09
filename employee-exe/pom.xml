@@ -9,7 +9,10 @@
 	</parent>
 	<artifactId>employee-exe</artifactId>
 	<dependencies>
-
+            <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-batch</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -31,11 +34,6 @@
 			<scope>provided</scope>
 		</dependency>
 		
-			<dependency>
-			<groupId>com.mukesh.ms.lab.employee</groupId>
-			<artifactId>employee-services</artifactId>
-			<scope>runtime</scope>
-	</dependency>
 	
 	</dependencies>
 

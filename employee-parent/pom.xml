@@ -14,10 +14,6 @@
 
 	<properties>
 		<swagger2markup.version>1.2.0</swagger2markup.version>
-		<asciidoc.version>1.5.3</asciidoc.version>
-		<generated.asciidoc.directory>${project.build.directory}/asciidoc/generated</generated.asciidoc.directory>
-		<adoc.file>employee-ms</adoc.file>
-		<asciidoctor.html.output.directory>${project.build.directory}/asciidoc/html</asciidoctor.html.output.directory>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -43,17 +39,8 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId> 
-			</dependency> <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-jpa</artifactId> 
-			<exclusions> <exclusion> <groupId>org.hibernate</groupId> <artifactId>hibernate-entitymanager</artifactId> 
-			</exclusion> </exclusions> </dependency> <dependency> <groupId>com.h2database</groupId> 
-			<artifactId>h2</artifactId> </dependency> -->
-		<!--test dependencies -->
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-test</artifactId> 
-			<scope>test</scope> </dependency> -->
+
 	</dependencies>
-	<!-- <build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> </plugins> </build> -->
 
 	<dependencyManagement>
 		<dependencies>
@@ -94,8 +81,8 @@
 			</dependency>
 			<dependency>
 				<groupId>com.mukesh.ms.lab.employee</groupId>
-         		<artifactId>employee-exe</artifactId>
-         		<version>${project.version}</version>
+				<artifactId>employee-exe</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

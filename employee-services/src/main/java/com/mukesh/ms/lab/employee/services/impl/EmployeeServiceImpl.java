@@ -7,10 +7,13 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
 
 import com.mukesh.ms.lab.employee.entity.EmployeeEntity;
 import com.mukesh.ms.lab.employee.repository.EmployeeRepository;
@@ -24,6 +27,7 @@ import com.mukesh.ms.lab.employee.services.mapper.EmployeeEntityDTOMapper;
 @Service
 public class EmployeeServiceImpl implements IEmployeeService
 {
+	private static final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	
 	@Autowired
 	EmployeeRepository employeeRepository;

@@ -13,6 +13,8 @@ import com.mukesh.ms.lab.employee.services.interfaces.IMessages;
 
 public class ServiceInterceptor implements IServiceInterceptor{
 
+	
+	
 	@Inject
 	private IMessages messages;
 	@Override

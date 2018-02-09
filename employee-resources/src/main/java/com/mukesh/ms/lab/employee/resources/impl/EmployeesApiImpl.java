@@ -2,6 +2,9 @@ package com.mukesh.ms.lab.employee.resources.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -28,7 +31,8 @@ import io.swagger.annotations.ApiParam;
 @Scope(value ="prototype")
 public class EmployeesApiImpl implements EmployeesApi
 {
-
+	private static final Logger logger = LoggerFactory.getLogger(EmployeesApiImpl.class);
+	
 	@Autowired
 	IEmployeeService service;
 
@@ -99,7 +103,17 @@ public class EmployeesApiImpl implements EmployeesApi
 		EmployeeDTO dto = service.updateEmployee(ID.longValue(), EmployeeMapper.mapToDTO(updateEmployee));
 
 		return new ResponseEntity<Object>(HttpStatus.OK).ok(EmployeeMapper.mapToEmployee(dto));
+	}
+
+	public void setService(IEmployeeService service) {
+		this.service = service;
+	}
+
+	public void setEmployeeInputValidation(IEmployeeInputValidation employeeInputValidation) {
+		this.employeeInputValidation = employeeInputValidation;
 	}	
+	
+	
 
 
 }
