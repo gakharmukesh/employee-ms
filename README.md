@@ -12,6 +12,8 @@ defined in the YAML file found in employee-api module.
 This module contains the service (domain) implementation.
 # employee-repository
 This module contains the data persistance.
+# employee-resources
+This project contains the interfaces for the resources layer.
 
 
 
@@ -26,7 +28,7 @@ You need to install the following tools if you want to run this application:
   
   Maven (the application is tested with Maven 3.3.3)
 
-Running the Application
+# Running the Application
 
   1. mvn clean install
   
@@ -41,5 +43,13 @@ Below is the Sample.csv file data:-
 
 id,firstName,middleInitial,lastName,dateOfBirth,dateOfEmployment,status
 101,Mukesh,K,Kumar,2016-02-03,2016-02-03,ACTIVE
+
+
+#Swagger documentation 
+/swagger-ui.html
+
+#URL
+/employees
+
 
 
