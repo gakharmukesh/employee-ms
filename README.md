@@ -37,7 +37,7 @@ You need to install the following tools if you want to run this application:
 sample.csv file is having employee data which will be saved in db during server start up.If you dont want to upload data then run below 
 command:-
 
-java  .\employee-exe\target\employee-exe-0.0.1-SNAPSHOT.jar
+java  -jar .\employee-exe\target\employee-exe-0.0.1-SNAPSHOT.jar
 
 Below is the Sample.csv file data:-
 
