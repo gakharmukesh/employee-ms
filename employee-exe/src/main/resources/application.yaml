@@ -1,5 +1,6 @@
 server:
   port: 8080
+  contextPath: /api
 
 security:
   basic:
@@ -14,4 +15,9 @@ spring:
     date-format: yyyy-MM-dd
     serializaion:
       WRITE_DATES_AS_TIMESTAMPS: false
+      
+#Batch
+  batch:
+    job:
+      enabled: true
       

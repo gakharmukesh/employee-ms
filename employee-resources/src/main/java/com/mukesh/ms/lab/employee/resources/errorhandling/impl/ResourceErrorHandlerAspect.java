@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.annotation.Configuration;
+
 
 import com.mukesh.ms.lab.employee.resources.errorhandling.interfaces.IResourceInterceptor;
 

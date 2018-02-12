@@ -1,31 +1,87 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.mukesh.ms.lab.employee</groupId>
-  <artifactId>employee-ms</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>employee-api</module>
-  	<module>employee-resourcegen</module>
-  	<module>employee-parent</module>
-  	<module>employee-resources</module>
-  	<module>employee-exe</module>
-  	<module>employee-services</module>
-  	<module>employee-repository</module>
-  </modules>
- 
-   
-   
-    <build>
-        <plugins>
-            <!-- Skip deploying this project to a remote Artifactory/Nexus.  We only use it when building. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.mukesh.ms.lab.employee</groupId>
+	<artifactId>employee-ms</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>employee-api</module>
+		<module>employee-resourcegen</module>
+		<module>employee-parent</module>
+		<module>employee-resources</module>
+		<module>employee-exe</module>
+		<module>employee-services</module>
+		<module>employee-repository</module>
+	</modules>
+
+
+
+	<build>
+		<plugins>
+			<!-- Skip deploying this project to a remote Artifactory/Nexus. We only 
+				use it when building. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.9.0</version>
+				<configuration>
+					<linkXref>true</linkXref>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.8</targetJdk>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.6.0</version>
+          <configuration>
+            <mainClass>none</mainClass>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
+
+			<!--  <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+				<execution>
+				</execution>
+				</executions>
+				<configuration>
+				      <includeProjectDependencies>false</includeProjectDependencies>
+         				<includePluginDependencies>true</includePluginDependencies>
+					<mainClass>com.mukesh.ms.lab.employee.EmployeeApplication</mainClass>
+				 	 <systemProperties>
+						<systemProperty>
+							<key>filePath</key>
+							<value>sample.csv</value>
+						</systemProperty>
+					</systemProperties>
+				</configuration>
+				     <dependencies>
+         		 <dependency>
+                	<groupId>com.mukesh.ms.lab.employee</groupId>
+                <artifactId>employee-exe</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <type>jar</type> 
+                <scope>system</scope>
+                <systemPath>C:\ATTLS\lab\employee-ms\employee-exe\target/employee-exe-0.0.1-SNAPSHOT.jar</systemPath>    
+          </dependency>
+        </dependencies>
+			</plugin>  -->
+
+
+		</plugins>
+	</build>
 </project>

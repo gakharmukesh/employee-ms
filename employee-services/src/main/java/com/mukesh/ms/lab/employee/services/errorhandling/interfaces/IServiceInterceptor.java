@@ -4,5 +4,5 @@ import org.aspectj.lang.JoinPoint;
 
 public interface IServiceInterceptor 
 {
-	public void handleServiceErrors(JoinPoint jp,Throwable ex) ;
+	 void handleServiceErrors(JoinPoint jp,Throwable ex) ;
 }

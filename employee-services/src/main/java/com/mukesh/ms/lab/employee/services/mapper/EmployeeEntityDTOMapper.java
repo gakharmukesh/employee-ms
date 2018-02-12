@@ -1,5 +1,6 @@
 package com.mukesh.ms.lab.employee.services.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mukesh.ms.lab.employee.entity.EmployeeEntity;
@@ -8,7 +9,7 @@ import com.mukesh.ms.lab.employee.services.dto.EmployeeDTO;
 public class EmployeeEntityDTOMapper 
 {
 
-	public static EmployeeEntity mapToEntity(EmployeeDTO dto)
+	public  EmployeeEntity mapToEntity(EmployeeDTO dto)
 	{
 		EmployeeEntity entity=new EmployeeEntity();	
 		
@@ -24,13 +25,13 @@ public class EmployeeEntityDTOMapper
 		entity.setLastName(dto.getLastName());
 		entity.setDateOfBirth(dto.getDateOfBirth());
 		entity.setDateOfEmployment(dto.getDateOfEmployment());
-		//entity.setStatus(dto.getStatus());
+		entity.setStatus(dto.getStatus());
 		
 		
 		return entity;
 	}
 	
-	public static EmployeeDTO mapToDTO(EmployeeEntity entity)
+	public  EmployeeDTO mapToDTO(EmployeeEntity entity)
 	{
 		EmployeeDTO dto=new EmployeeDTO();
 		if(entity==null)
@@ -51,12 +52,13 @@ public class EmployeeEntityDTOMapper
 	}
 	
 	
-	public static List<EmployeeDTO> mapList(List<EmployeeEntity> entityList,List<EmployeeDTO> dtoList)
+	public  List<EmployeeDTO> mapDTOList(List<EmployeeEntity> entityList)
 	{
+		List<EmployeeDTO> dtoList=new ArrayList<>();
 		
 		for(EmployeeEntity entity:entityList)
 		{
-			EmployeeDTO dto=new EmployeeDTO();
+			
 			dtoList.add(mapToDTO(entity));
 		}
 		

@@ -28,7 +28,7 @@ public class SwaggerConfig
 
 	
 	private ApiInfo metaData() {
-	        ApiInfo apiInfo = new ApiInfo(
+	        return new ApiInfo(
 	                "Employee MS REST API",
 	                "Employee MS REST API Lab",
 	                "1.0",
@@ -36,6 +36,6 @@ public class SwaggerConfig
 	                new Contact("Mukesh Kumar", "http://mukeshkumar.com", "kumarmukesh1254@gmail.com"),
 	               "",
 	                "");
-	        return apiInfo;
+	        
 	    }
 }

@@ -3,8 +3,7 @@ package com.mukesh.ms.lab.employee.resources.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.mukesh.ms.lab.employee.resources.enums.OperationType;
-import com.mukesh.ms.lab.employee.resources.interfaces.EmployeesApi;
+import com.mukesh.ms.lab.employee.resources.interfaces.EmployeeMsApi;
 import com.mukesh.ms.lab.employee.resources.mapper.EmployeeMapper;
 import com.mukesh.ms.lab.employee.resources.models.Employee;
 import com.mukesh.ms.lab.employee.resources.models.EmployeeValidation;
@@ -29,15 +28,20 @@ import io.swagger.annotations.ApiParam;
 
 @Controller
 @Scope(value ="prototype")
-public class EmployeesApiImpl implements EmployeesApi
+public class EmployeesApiImpl implements EmployeeMsApi
 {
-	private static final Logger logger = LoggerFactory.getLogger(EmployeesApiImpl.class);
+	
 	
 	@Autowired
 	IEmployeeService service;
 
 	@Autowired
 	IEmployeeInputValidation employeeInputValidation;	
+	
+	@Autowired
+	EmployeeMapper mapper;
+	
+	
 	
 	
 	@Override
@@ -52,8 +56,8 @@ public class EmployeesApiImpl implements EmployeesApi
 			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(validation);
 		}
 		
-		EmployeeDTO dto = service.addEmployee(EmployeeMapper.mapToDTO(newEmployee));
-		return new ResponseEntity<Employee>(HttpStatus.CREATED).ok(EmployeeMapper.mapToEmployee(dto));
+		 EmployeeDTO dto = service.addEmployee(mapper.mapToDTO(newEmployee));
+		return new ResponseEntity<Employee>(HttpStatus.CREATED).ok(mapper.mapToEmployee(dto));
 	}
 
 	@Override
@@ -62,7 +66,7 @@ public class EmployeesApiImpl implements EmployeesApi
 	{
 		
 		EmployeeDTO dto=service.deleteEmployee(ID.longValue());
-		return new ResponseEntity<Object>(HttpStatus.OK).ok(EmployeeMapper.mapToEmployee(dto));
+		return new ResponseEntity<Object>(HttpStatus.OK).ok(mapper.mapToEmployee(dto));
 		
 	}
 
@@ -71,10 +75,9 @@ public class EmployeesApiImpl implements EmployeesApi
 			@ApiParam(value = "Client's conversation id"  ) @RequestHeader(value="ConversationId", required=false) String conversationId) 
 	{
 		
-		Employee employee = new Employee();
 		EmployeeDTO dto = service.getEmployee(ID.longValue());
 	
-		return new ResponseEntity<Employee>(HttpStatus.OK).ok(EmployeeMapper.mapToEmployee(dto));
+		return new ResponseEntity<Employee>(HttpStatus.OK).ok(mapper.mapToEmployee(dto));
 	}
 
 	@Override
@@ -82,7 +85,7 @@ public class EmployeesApiImpl implements EmployeesApi
 		
 		List<EmployeeDTO> dtoList = service.getEmployees();
 		
-		return new ResponseEntity<List<Employee>>(HttpStatus.OK).ok(EmployeeMapper.mapToEmployeeList(dtoList));
+		return new ResponseEntity<List<Employee>>(HttpStatus.OK).ok(mapper.mapToEmployeeList(dtoList));
 	}
 
 	@Override
@@ -92,7 +95,7 @@ public class EmployeesApiImpl implements EmployeesApi
 	{
 		
 		ValidationFailureCollection fails = employeeInputValidation.validateRequest(ID,updateEmployee,
-				OperationType.CREATE);
+				OperationType.UPDATE);
 		if (!fails.isEmpty()) {
 			EmployeeValidation validation = new EmployeeValidation();
 			validation.setValidation(fails);
@@ -100,9 +103,9 @@ public class EmployeesApiImpl implements EmployeesApi
 			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(validation);
 		}
 
-		EmployeeDTO dto = service.updateEmployee(ID.longValue(), EmployeeMapper.mapToDTO(updateEmployee));
+		EmployeeDTO dto = service.updateEmployee(ID.longValue(), mapper.mapToDTO(updateEmployee));
 
-		return new ResponseEntity<Object>(HttpStatus.OK).ok(EmployeeMapper.mapToEmployee(dto));
+		return new ResponseEntity<Object>(HttpStatus.OK).ok(mapper.mapToEmployee(dto));
 	}
 
 	public void setService(IEmployeeService service) {
@@ -111,6 +114,10 @@ public class EmployeesApiImpl implements EmployeesApi
 
 	public void setEmployeeInputValidation(IEmployeeInputValidation employeeInputValidation) {
 		this.employeeInputValidation = employeeInputValidation;
+	}
+
+	public void setMapper(EmployeeMapper mapper) {
+		this.mapper = mapper;
 	}	
 	
 	

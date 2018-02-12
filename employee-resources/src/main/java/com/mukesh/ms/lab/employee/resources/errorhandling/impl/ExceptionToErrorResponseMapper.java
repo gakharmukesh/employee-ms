@@ -26,7 +26,7 @@ public class ExceptionToErrorResponseMapper extends ResponseEntityExceptionHandl
     @ResponseBody
     public ResponseEntity<ErrorResponse> handleException(HttpServletRequest req, Exception exception) {
 
-    	logger.info("Error"+exception);
+    	logger.info("Error",exception);
     	
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         String message = "Internal Server Error";

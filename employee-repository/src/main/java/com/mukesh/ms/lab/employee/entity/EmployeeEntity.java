@@ -106,13 +106,13 @@ public class EmployeeEntity implements Persistable
 
 	@Override
 	public Serializable getId() {
-		// TODO Auto-generated method stub
+		
 		return id;
 	}
 
 	@Override
 	public boolean isNew() {
-		// TODO Auto-generated method stub
+		
 		return !update;
 	}
 

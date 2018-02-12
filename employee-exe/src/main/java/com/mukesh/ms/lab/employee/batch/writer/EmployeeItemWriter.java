@@ -18,6 +18,10 @@ public class EmployeeItemWriter implements ItemWriter<EmployeeDTO>
 
 	@Autowired
 	EmployeeRepository repository;
+	
+	@Autowired
+	EmployeeEntityDTOMapper mapper;
+	
 	@Override
 	public void write(List<? extends EmployeeDTO> items) {
 		
@@ -26,12 +30,13 @@ public class EmployeeItemWriter implements ItemWriter<EmployeeDTO>
 		{
 			try
 			{
-				EmployeeEntity entity=EmployeeEntityDTOMapper.mapToEntity(dto);
+				EmployeeEntity entity=mapper.mapToEntity(dto);
 				entity.setStatus(dto.getStatus());
 				repository.save(entity);
 			}catch(Exception e)
 			{
 				log.error("EmployeeItemWriter::write() failed for item"+dto.getId()+"  "+ e.getMessage());
+				log.error("EmployeeItemWriter::write() Exception",e);
 			}
 		}
 		

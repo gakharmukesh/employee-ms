@@ -13,7 +13,7 @@ info:
     url: "http://"
     
 host: "mukeshkumar.com:10101"
-basePath: "/employees/v1"
+basePath: "/api"
 schemes:
 - "https"
 consumes:
@@ -25,7 +25,7 @@ produces:
 
 
 paths:
-  /employees:
+  /employee-ms/v1/employees:
     get:
       tags:
       - "Get all employees"
@@ -85,7 +85,7 @@ paths:
             $ref: "#/definitions/EmployeeValidation"
 
             
-  /employees/{ID}:
+  /employee-ms/v1/employees/{ID}:
     get:
       tags:
       - "Get employee"

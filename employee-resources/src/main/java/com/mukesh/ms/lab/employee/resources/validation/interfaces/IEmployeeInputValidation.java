@@ -8,6 +8,6 @@ import com.mukesh.ms.lab.employee.resources.models.ValidationFailureCollection;
 
 public interface IEmployeeInputValidation 
 {
-	public ValidationFailureCollection validateRequest(BigDecimal id,Employee emp,OperationType operation);
+	ValidationFailureCollection validateRequest(BigDecimal id,Employee emp,OperationType operation);
 	
 }

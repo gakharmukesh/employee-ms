@@ -1,7 +1,7 @@
 package com.mukesh.ms.lab.employee.services.dto;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class EmployeeDTO 
 {
@@ -29,7 +29,7 @@ public class EmployeeDTO
 	
 	
 	public EmployeeDTO() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 

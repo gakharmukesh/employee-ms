@@ -14,7 +14,7 @@ public class ResourceInterceptor implements IResourceInterceptor {
 
 	@Override
 	public void handleAllErrors(Throwable ex) {
-		// TODO Auto-generated method stub
+		
 		
 		
 		 if (ex instanceof AbstractApplicationException) 

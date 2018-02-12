@@ -1,82 +1,87 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.mukesh.ms.lab.employee</groupId>
-    <artifactId>employee-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../employee-parent</relativePath>
-  </parent>
-  <artifactId>employee-resourcegen</artifactId>
- 
- <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mukesh.ms.lab.employee</groupId>
+		<artifactId>employee-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../employee-parent</relativePath>
+	</parent>
+	<artifactId>employee-resourcegen</artifactId>
+
+	<properties>
 		<swagger-file.artifactId>employee-api</swagger-file.artifactId>
 		<api-package>com.mukesh.ms.lab.employee.resources.interfaces</api-package>
 		<model-package>com.mukesh.ms.lab.employee.resources.models</model-package>
-</properties>
-<dependencies>		
+	</properties>
+	<dependencies>
+
 		<dependency>
-			<groupId>com.mukesh.ms.lab.employee</groupId>
-			<artifactId>employee-api</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+	
 		<dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-        </dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
-			<version>1.5.18</version>
-		</dependency>
-		      <dependency>
-    		<groupId>com.fasterxml.jackson.module</groupId>
-    		<artifactId>jackson-module-parameter-names</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-    		<groupId>com.fasterxml.jackson.datatype</groupId>
-    		<artifactId>jackson-datatype-jdk8</artifactId>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-parameter-names</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-    	<groupId>com.fasterxml.jackson.datatype</groupId>
-    <artifactId>jackson-datatype-jsr310</artifactId>
-	</dependency>
-</dependencies>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jdk8</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
-<build>
-        <resources>
-            <resource>
-                <directory>${project.build.directory}/generated-sources/swagger/src/main/resources</directory>
-            </resource>
-        </resources>
-<plugins>
-	<plugin>
-    <groupId>io.swagger</groupId>
-    <artifactId>swagger-codegen-maven-plugin</artifactId>
-    <version>2.2.1</version>
-    <configuration>
-        <language>jaxrs-cxf</language>
-    </configuration>
-    <executions>
-        <execution>
-            <id>ms</id>
-            <goals>
-                <goal>generate</goal>
-            </goals>
-            <configuration>
-                <inputSpec>${project.build.directory}/swagger/${swagger-file.artifactId}.yaml</inputSpec>
-                <language>spring</language>
-                   			<configOptions>
-                                <dateLibrary>java8</dateLibrary>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <interfaceOnly>true</interfaceOnly>
-                            </configOptions>
-                            <modelPackage>${model-package}</modelPackage>
-                            <apiPackage>${api-package}</apiPackage>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-			
+	<build>
+		<resources>
+			<resource>
+				<directory>${project.build.directory}/generated-sources/swagger/src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<configuration>
+					<language>jaxrs-cxf</language>
+				</configuration>
+				<executions>
+					<execution>
+						<id>ms</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<inputSpec>${project.build.directory}/swagger/${swagger-file.artifactId}.yaml</inputSpec>
+							<language>spring</language>
+							<configOptions>
+								<dateLibrary>java8</dateLibrary>
+								<sourceFolder>src/main/java</sourceFolder>
+								<interfaceOnly>true</interfaceOnly>
+							</configOptions>
+							<modelPackage>${model-package}</modelPackage>
+							<apiPackage>${api-package}</apiPackage>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- Make the generated classes folder as a source folder -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -96,8 +101,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-            <!-- Copy the swagger YAML file from the maven repo -->
+
+			<!-- Copy the swagger YAML file from the maven repo -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>

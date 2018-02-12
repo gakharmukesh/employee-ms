@@ -10,5 +10,5 @@ public interface IMessages
      * @param params
      * @return
      */
-    public String getMessage(String key, String... params);
+    String getMessage(String key, String... params);
 }

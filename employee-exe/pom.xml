@@ -4,15 +4,15 @@
 	<parent>
 		<groupId>com.mukesh.ms.lab.employee</groupId>
 		<artifactId>employee-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../employee-parent</relativePath>
 	</parent>
 	<artifactId>employee-exe</artifactId>
 	<dependencies>
-            <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-batch</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -21,20 +21,24 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<scope>compile</scope>
+
 		</dependency>
-		<dependency>
-			<groupId>com.mukesh.ms.lab.employee</groupId>
-			<artifactId>employee-resources</artifactId>
-			<scope>provided</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>com.mukesh.ms.lab.employee</groupId>
 			<artifactId>employee-repository</artifactId>
-			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mukesh.ms.lab.employee</groupId>
+			<artifactId>employee-services</artifactId>
+		</dependency>
+			<dependency>
+			<groupId>com.mukesh.ms.lab.employee</groupId>
+			<artifactId>employee-resources</artifactId>
 		</dependency>
 		
-	
+
+
 	</dependencies>
 
 
@@ -44,6 +48,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.mukesh.ms.lab.employee.EmployeeApplication</mainClass>
+		 	<!-- 		<systemProperties>
+						<systemProperty>
+							<key>filePath</key>
+							<value>sample.csv</value>
+						</systemProperty>
+					</systemProperties> -->
+					<executable>java</executable>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+
+
 		</plugins>
 	</build>
 </project>

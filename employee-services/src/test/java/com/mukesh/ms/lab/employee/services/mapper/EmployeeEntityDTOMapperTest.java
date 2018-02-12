@@ -5,7 +5,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.events.EntityDeclaration;
+
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,12 +19,10 @@ public class EmployeeEntityDTOMapperTest extends TestCase
 {
  
 	private static EmployeeDTO emp1;
-	private static EmployeeDTO emp2;
 	private static EmployeeEntity entity;
-	private static EmployeeEntity entity1;
 	private static List<EmployeeEntity> entityList;
 	private static LocalDate firstDay_2018=LocalDate.of(2018, Month.JANUARY, 1);
-	private static LocalDate firstDay_2017=LocalDate.of(2017, Month.JANUARY, 1);
+	private static EmployeeEntityDTOMapper mapper;
 	
 	@BeforeClass
 	public void setUp() throws Exception
@@ -32,16 +30,17 @@ public class EmployeeEntityDTOMapperTest extends TestCase
 		
 		emp1=new EmployeeDTO(101,"Mukesh",null,"Kumar",firstDay_2018,firstDay_2018,"ACTIVE");
 		entity=new EmployeeEntity(101,"Mukesh",null,"Kumar",firstDay_2018,firstDay_2018,"ACTIVE");
-		emp2=new EmployeeDTO(101,"Rahul","K","Gakhar",firstDay_2017,firstDay_2017,"ACTIVE");
-		entity1=new EmployeeEntity(101,"Rahul","K","Gakhar",firstDay_2017,firstDay_2017,"INACTIVE");
+		
 		entityList=new ArrayList<EmployeeEntity>();
 		entityList.add(entity);
+		
+		mapper=new EmployeeEntityDTOMapper();
 	}
 	
 	@Test
 	public void testMapToEntity()
 	{
-		EmployeeEntity newEntity=EmployeeEntityDTOMapper.mapToEntity(emp1);
+		EmployeeEntity newEntity=mapper.mapToEntity(emp1);
 		
 		assertNotNull(newEntity);
 		assertEquals(emp1.getId(),newEntity.getId());
@@ -50,13 +49,13 @@ public class EmployeeEntityDTOMapperTest extends TestCase
 		assertEquals(emp1.getLastName(),newEntity.getLastName());
 		assertEquals(emp1.getDateOfBirth(), newEntity.getDateOfBirth());
 		assertEquals(emp1.getDateOfEmployment(), newEntity.getDateOfEmployment());
-		//assertEquals(entity.getStatus(),newEntity.getStatus());
+		assertEquals(entity.getStatus(),newEntity.getStatus());
 	}
 	
 	@Test
 	public void testMapToDTO()
 	{
-		EmployeeDTO newDTO=EmployeeEntityDTOMapper.mapToDTO(entity);
+		EmployeeDTO newDTO=mapper.mapToDTO(entity);
 		
 		assertNotNull(newDTO);
 		assertEquals(entity.getId(),newDTO.getId());
@@ -71,8 +70,8 @@ public class EmployeeEntityDTOMapperTest extends TestCase
 	@Test
 	public void testMapList()
 	{
-		List<EmployeeDTO> dtoList=new ArrayList<EmployeeDTO>();
-		dtoList=EmployeeEntityDTOMapper.mapList(entityList, dtoList);
+		
+		List<EmployeeDTO>  dtoList=mapper.mapDTOList(entityList);
 		
 		assertNotNull(dtoList);
 		assertTrue(dtoList.size()==1);

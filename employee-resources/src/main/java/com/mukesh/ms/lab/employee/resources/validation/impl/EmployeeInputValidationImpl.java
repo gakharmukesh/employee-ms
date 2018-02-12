@@ -1,14 +1,12 @@
 package com.mukesh.ms.lab.employee.resources.validation.impl;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.mukesh.ms.lab.employee.resources.models.ValidationFailure;
+import com.mukesh.ms.lab.employee.resources.constants.Constants;
 import com.mukesh.ms.lab.employee.resources.enums.OperationType;
 import com.mukesh.ms.lab.employee.resources.models.Employee;
 import com.mukesh.ms.lab.employee.resources.models.ValidationFailureCollection;
@@ -22,31 +20,27 @@ public class EmployeeInputValidationImpl implements IEmployeeInputValidation {
 
 	@Override
 	public ValidationFailureCollection validateRequest(BigDecimal id,Employee emp, OperationType operation) {
-		// TODO Auto-generated method stub
+		
 		List<String> objPath = new ArrayList<>();
 		objPath.add("Employee");
 		
 		
 		
-		requireNonNull(objPath,"id",emp.getId(),"EMP00100");
-		requireNonNull(objPath,"firstName",emp.getFirstName(),"EMP00100");
-		requireNonNull(objPath,"lastName",emp.getLastName(),"EMP00100");
-		requireNonNull(objPath,"dateOfBirth",emp.getDateOfBirth(),"EMP00100");
-		requireNonNull(objPath,"dateOfEmployment",emp.getDateOfEmployment(),"EMP00100");
-		NotRequired(objPath,"status",emp.getStatus(),"EMP00200");
+		requireNonNull(objPath,"id",emp.getId(),Constants.EMP00100);
+		requireNonNull(objPath,"firstName",emp.getFirstName(),Constants.EMP00100);
+		requireNonNull(objPath,"lastName",emp.getLastName(),Constants.EMP00100);
+		requireNonNull(objPath,"dateOfBirth",emp.getDateOfBirth(),Constants.EMP00100);
+		requireNonNull(objPath,"dateOfEmployment",emp.getDateOfEmployment(),Constants.EMP00100);
+		NotRequired(objPath,"status",emp.getStatus(),Constants.EMP00200);
 		
-		requireMaxLength(objPath,"middleInitial",emp.getMiddleInitial(),1,"EMP00300");
+		requireMaxLength(objPath,"middleInitial",emp.getMiddleInitial(),1,Constants.EMP00300);
 		
 		NotEqual(objPath,"id",id,emp.getId(),"EMP00100");
 		
 		return fails;
 	}
 
-	private void requireNull(List<String> objPath, String atrName, Object val, String code) {
-		if (val != null) {
-			addAction(failAtrVal(BADATR_MSG_ID, objPath, atrName, val, code), "EmployeeInputValidation.requireNull");
-		}
-	}
+	
 	
 	private void NotEqual(List<String> objPath, String atrName, BigDecimal source,BigDecimal target, String code) {
 		if (source != null && target!=null && source.compareTo(target)!=0) {
@@ -54,11 +48,7 @@ public class EmployeeInputValidationImpl implements IEmployeeInputValidation {
 		}
 	}
 	
-	private void NotEqual(List<String> objPath, String atrName, Object source,Object target, String code) {
-		if (source != null && target!=null && source!=target) {
-			addAction(failAtrVal(BADATR_MSG_ID, objPath, atrName, target, code), "EmployeeInputValidation.NotEqual.Can't be changed and expected value "+source);
-		}
-	}
+	
 	private void NotRequired(List<String> objPath, String atrName, String val, String code) {
 		if (val != null) {
 			addAction(failAtrVal(BADATR_MSG_ID, objPath, atrName, val, code), "EmployeeInputValidation.NotRequired.Please remove it from input.");

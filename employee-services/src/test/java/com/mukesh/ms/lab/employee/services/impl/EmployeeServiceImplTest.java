@@ -1,13 +1,14 @@
 package com.mukesh.ms.lab.employee.services.impl;
 
 
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -17,7 +18,8 @@ import com.mukesh.ms.lab.employee.entity.EmployeeEntity;
 import com.mukesh.ms.lab.employee.repository.EmployeeRepository;
 import com.mukesh.ms.lab.employee.repository.enums.EmployeeStatus;
 import com.mukesh.ms.lab.employee.services.dto.EmployeeDTO;
-import com.mukesh.ms.lab.employee.services.interfaces.IEmployeeService;
+
+import com.mukesh.ms.lab.employee.services.mapper.EmployeeEntityDTOMapper;
 
 import junit.framework.TestCase;
 
@@ -32,6 +34,7 @@ public class EmployeeServiceImplTest extends TestCase
 	private static LocalDate firstDay_2018=LocalDate.of(2018, Month.JANUARY, 1);
 	private static LocalDate firstDay_2017=LocalDate.of(2017, Month.JANUARY, 1);
 	private static EmployeeServiceImpl service;
+	private static EmployeeEntityDTOMapper mapper;
 	
 	
 	@BeforeClass
@@ -41,18 +44,29 @@ public class EmployeeServiceImplTest extends TestCase
 		emp1=new EmployeeDTO(101,"Mukesh",null,"Kumar",firstDay_2018,firstDay_2018,"ACTIVE");
 		entity=new EmployeeEntity(101,"Mukesh",null,"Kumar",firstDay_2018,firstDay_2018,"ACTIVE");
 		emp2=new EmployeeDTO(101,"Rahul","K","Gakhar",firstDay_2017,firstDay_2017,"ACTIVE");
-		entity1=new EmployeeEntity(101,"Rahul","K","Gakhar",firstDay_2017,firstDay_2017,"INACTIVE");
+		entity1=new EmployeeEntity(101,"Rahul","K","Gakhar",firstDay_2017,firstDay_2017,"ACTIVE");
 		List<EmployeeEntity> entityList=new ArrayList<EmployeeEntity>();
 		entityList.add(entity);
+		List<EmployeeDTO> dtoList=new ArrayList<EmployeeDTO>();
+		dtoList.add(emp1);
+		
 		repository=mock(EmployeeRepository.class);
 		when(repository.findByIdAndStatus(101, EmployeeStatus.ACTIVE.name())).thenReturn(entity);
 		when(repository.findByStatus(EmployeeStatus.ACTIVE.name())).thenReturn(entityList);
 		when(repository.save(entity)).thenReturn(entity);
-		//when(repository.save(entity1)).thenReturn(entity1);
+		when(repository.save(entity1)).thenReturn(entity1);
 		when(repository.getOne((long)101)).thenReturn(entity);
+		
+		mapper=mock(EmployeeEntityDTOMapper.class);
+		when(mapper.mapToDTO(entity)).thenReturn(emp1);
+		when(mapper.mapToEntity(emp1)).thenReturn(entity);
+		when(mapper.mapToDTO(entity1)).thenReturn(emp2);
+		when(mapper.mapToEntity(emp2)).thenReturn(entity1);	
+		when(mapper.mapDTOList(entityList)).thenReturn(dtoList);	
 		
 		service =new EmployeeServiceImpl();
 		service.setEmployeeRepository(repository);
+		service.setMapper(mapper);
 	}
 	
 	@Test
@@ -67,7 +81,7 @@ public class EmployeeServiceImplTest extends TestCase
 		assertEquals(entity.getMiddleInitial(), dto.getMiddleInitial());
 		assertEquals(entity.getLastName(),dto.getLastName());
 		assertEquals(entity.getDateOfBirth(), dto.getDateOfBirth());
-		assertEquals(entity.getDateOfEmployment(), entity.getDateOfEmployment());
+		assertEquals(entity.getDateOfEmployment(), dto.getDateOfEmployment());
 		assertEquals(entity.getStatus(),dto.getStatus());
 	}
 	
@@ -87,7 +101,7 @@ public class EmployeeServiceImplTest extends TestCase
 			assertEquals(entity.getMiddleInitial(), dto.getMiddleInitial());
 			assertEquals(entity.getLastName(),dto.getLastName());
 			assertEquals(entity.getDateOfBirth(), dto.getDateOfBirth());
-			assertEquals(entity.getDateOfEmployment(), entity.getDateOfEmployment());
+			assertEquals(entity.getDateOfEmployment(), dto.getDateOfEmployment());
 			assertEquals(entity.getStatus(),dto.getStatus());
 		    
 	}
@@ -95,7 +109,7 @@ public class EmployeeServiceImplTest extends TestCase
 	@Test
 	public void testUpdateEmployee()
 	{
-	  /*	EmployeeDTO dto= service.updateEmployee(101, emp2);
+	  	EmployeeDTO dto= service.updateEmployee(101, emp2);
 		
 		assertNotNull(dto);
 		assertEquals(entity1.getId(),dto.getId());
@@ -103,8 +117,8 @@ public class EmployeeServiceImplTest extends TestCase
 		assertEquals(entity1.getMiddleInitial(), dto.getMiddleInitial());
 		assertEquals(entity1.getLastName(),dto.getLastName());
 		assertEquals(entity1.getDateOfBirth(), dto.getDateOfBirth());
-		assertEquals(entity1.getDateOfEmployment(), entity.getDateOfEmployment());
-		assertEquals(entity1.getStatus(),dto.getStatus());*/
+		assertEquals(entity1.getDateOfEmployment(), dto.getDateOfEmployment());
+		assertEquals(entity1.getStatus(),dto.getStatus());
 	}
 	
 	@Test
@@ -112,14 +126,14 @@ public class EmployeeServiceImplTest extends TestCase
 	{
 		EmployeeDTO dto=service.addEmployee(emp1);
 		
-	/*	assertNotNull(dto);
+		assertNotNull(dto);
 		assertEquals(entity.getId(),dto.getId());
 		assertEquals(entity.getFirstName(),dto.getFirstName());
 		assertEquals(entity.getMiddleInitial(), dto.getMiddleInitial());
 		assertEquals(entity.getLastName(),dto.getLastName());
 		assertEquals(entity.getDateOfBirth(), dto.getDateOfBirth());
-		assertEquals(entity.getDateOfEmployment(), entity.getDateOfEmployment());
-		assertEquals(entity.getStatus(),dto.getStatus()); */
+		assertEquals(entity.getDateOfEmployment(), dto.getDateOfEmployment());
+		assertEquals(entity.getStatus(),dto.getStatus()); 
 	}
 	
 	public void testDeleteEmployee()
@@ -131,7 +145,7 @@ public class EmployeeServiceImplTest extends TestCase
 		assertEquals(entity.getMiddleInitial(), dto.getMiddleInitial());
 		assertEquals(entity.getLastName(),dto.getLastName());
 		assertEquals(entity.getDateOfBirth(), dto.getDateOfBirth());
-		assertEquals(entity.getDateOfEmployment(), entity.getDateOfEmployment());
+		assertEquals(entity.getDateOfEmployment(), dto.getDateOfEmployment());
 		assertEquals(entity.getStatus(),"INACTIVE");
 	}
 	
