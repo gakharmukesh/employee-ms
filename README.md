@@ -32,24 +32,27 @@ You need to install the following tools if you want to run this application:
 
   1. mvn clean install
   
-  2. java -DfilePath=file:C:\\ATTLS\\sample.csv -jar .\employee-exe\target\employee-exe-0.0.1-SNAPSHOT.jar
+  2. mvn exec:java -D filePath=file:C:\ATTLS\sample.csv
   
-sample.csv file is having employee data which will be saved in db during server start up.If you dont want to upload data then run below 
-command:-
+sample.csv file is having employee data which will be saved in db during server start up.
 
-java  -jar .\employee-exe\target\employee-exe-0.0.1-SNAPSHOT.jar
-
-Below is the Sample.csv file data:-
-
+ Sample.csv file data format:-
 id,firstName,middleInitial,lastName,dateOfBirth,dateOfEmployment,status
 101,Mukesh,K,Kumar,2016-02-03,2016-02-03,ACTIVE
 
 
+#Delete API call
+
+Delete api requires basic Auth with userid:admin and password:admin
+
 #Swagger documentation 
-/swagger-ui.html
+
+api/swagger-ui.html
 
 #URL
-/employees
+
+api/employees
+
 
 
 
