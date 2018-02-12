@@ -25,7 +25,7 @@ produces:
 
 
 paths:
-  /employee-ms/v1/employees:
+  /employees:
     get:
       tags:
       - "Get all employees"
@@ -85,7 +85,7 @@ paths:
             $ref: "#/definitions/EmployeeValidation"
 
             
-  /employee-ms/v1/employees/{ID}:
+  /employees/{ID}:
     get:
       tags:
       - "Get employee"

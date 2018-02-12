@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.mukesh.ms.lab.employee.resources.enums.OperationType;
-import com.mukesh.ms.lab.employee.resources.interfaces.EmployeeMsApi;
+import com.mukesh.ms.lab.employee.resources.interfaces.EmployeesApi;
 import com.mukesh.ms.lab.employee.resources.mapper.EmployeeMapper;
 import com.mukesh.ms.lab.employee.resources.models.Employee;
 import com.mukesh.ms.lab.employee.resources.models.EmployeeValidation;
@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiParam;
 
 @Controller
 @Scope(value ="prototype")
-public class EmployeesApiImpl implements EmployeeMsApi
+public class EmployeesApiImpl implements EmployeesApi
 {
 	
 	
